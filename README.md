@@ -12,4 +12,4 @@ Die Posts werden als Karten dargestellt, die den Namen des Autors, das Datum und
 Jeder Post verfügt über eine Löschschaltfläche, die es Benutzern ermöglicht, den Post zu entfernen, indem sie ihr Passwort eingeben.
 Das Projekt vereint Elemente der 90er-Jahre-Ästhetik mit moderner Full-Stack-Entwicklungstechnologie, um ein nostalgisches Gästebuch zu schaffen, das die Einfachheit und das Design dieser Ära einfängt.
 
-![g-Book](https://github.com/MichaelGee76/g-Book/blob/main/g-book.png)
+![g-Book](https://github.com/MichaelGee76/g-Book/blob/main/g-book2.png)
