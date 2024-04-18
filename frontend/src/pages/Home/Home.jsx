@@ -69,6 +69,13 @@ const Home = () => {
             .catch((err) => console.log(err, "Could not add post."));
     };
 
+    const maskEmail = (email) => {
+        const atIndex = email.indexOf("@");
+        const username = email.substring(0, atIndex);
+        const maskedUsername = username.substring(0, Math.min(4, username.length)) + "...";
+        return maskedUsername + email.substring(atIndex);
+    };
+
     return (
         <div className="overallContainer" key={233}>
             <h1>g-Book(90's style)</h1>
@@ -95,7 +102,7 @@ const Home = () => {
                     </p>
                     <div className="messageOutput">{post.message}</div>
                     <p className="email">
-                        <a href={`mailto:${post.email}`}>{post.email}</a>
+                        <a href={`mailto:${post.email}`}>{maskEmail(post.email)}</a>
                     </p>
                 </div>
             ))}

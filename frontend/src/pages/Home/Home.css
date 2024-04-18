@@ -8,6 +8,8 @@
     border: 1px solid rgb(44, 43, 43);
     padding-inline: 20px;
     margin-bottom: 20px;
+    width: 50%;
+    margin: auto;
     position: relative;
 }
 
