@@ -1,0 +1,49 @@
+.overallContainer {
+    width: 60%;
+    margin: auto;
+    text-align: center;
+}
+
+.container {
+    border: 1px solid rgb(44, 43, 43);
+    padding-inline: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.messageOutput {
+    font-style: italic;
+}
+
+.email {
+    cursor: pointer;
+}
+
+.deletePostButton {
+    all: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.inputPost {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: auto;
+    margin-bottom: 30px;
+}
+.inputPost input {
+    padding: 10px;
+}
+
+.inputPost textarea {
+    resize: vertical;
+    min-height: 100px;
+    padding: 10px;
+}
+
+.toggleForm {
+    all: unset;
+    cursor: pointer;
+}
