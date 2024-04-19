@@ -1,9 +1,10 @@
 import express from "express";
 import { body, validationResult } from "express-validator";
 import { myPathRead, myPathWrite } from "./functions.js";
+import dotenv from "./dotenv";
 
 const PORT = 9009;
-
+dotenv.config;
 const app = express();
 app.use(express.json());
 
@@ -63,7 +64,7 @@ app.post("/api/v8/g-book/posts", body("firstName").isString().notEmpty(), body("
 app.delete("/api/v8/g-book/posts/:id", (req, res) => {
     const deletePostId = req.params.id;
     const password = req.body.password;
-    if (password !== "*****") {
+    if (password !== PW) {
         return res.status(401).json({ message: "Wrong password." });
     }
     myPathRead()
