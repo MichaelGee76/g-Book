@@ -64,7 +64,7 @@ app.post("/api/v8/g-book/posts", body("firstName").isString().notEmpty(), body("
 app.delete("/api/v8/g-book/posts/:id", (req, res) => {
     const deletePostId = req.params.id;
     const password = req.body.password;
-    if (password !== PW) {
+    if (password !== process.env.PW) {
         return res.status(401).json({ message: "Wrong password." });
     }
     myPathRead()
