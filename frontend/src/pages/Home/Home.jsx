@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
@@ -12,16 +12,28 @@ const Home = () => {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [hoveredPostId, setHoveredPostId] = useState(null);
+    const [fieldsFilled, setFieldsFilled] = useState(true); // Zustand für die Überprüfung, ob alle Felder ausgefüllt sind
 
     useEffect(() => {
         fetch("http://localhost:9009/api/v8/g-book/posts")
             .then((res) => res.json())
             .then((posts) => {
                 setData(posts);
-                // console.log(posts);
             })
             .catch((err) => console.log("Could not fetch data", err));
     }, []);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (firstName && lastName && email && message) {
+            // Überprüfen, ob alle Felder ausgefüllt sind
+            sendPost(firstName, lastName, email, message);
+            setFieldsFilled(true);
+        } else {
+            setFieldsFilled(false);
+        }
+    };
+
     const deletePost = (id) => {
         const password = prompt(`Enter password to delete post: ${id}`);
         if (password) {
@@ -39,7 +51,6 @@ const Home = () => {
                     } else {
                         console.log("Invalid server response after deleting post");
                     }
-                    // console.log(id);
                 })
                 .catch((err) => console.log(err, "Could not delete post"));
         } else {
@@ -47,8 +58,7 @@ const Home = () => {
         }
     };
 
-    const sendPost = (e) => {
-        e.preventDefault();
+    const sendPost = (firstName, lastName, email, message) => {
         const sendData = { firstName, lastName, email, message };
 
         fetch("http://localhost:9009/api/v8/g-book/posts", {
@@ -56,14 +66,11 @@ const Home = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-
             body: JSON.stringify(sendData),
         })
             .then((res) => res.json())
             .then((newPost) => {
                 setData(newPost);
-
-                // console.log(sendData);
                 setFirstName("");
                 setLastName("");
                 setEmail("");
@@ -80,17 +87,18 @@ const Home = () => {
     };
 
     return (
-        <div className="overallContainer" key={233}>
+        <div className="overallContainer">
             <h1>g-Book(90's style)</h1>
             <button className="toggleForm" onClick={() => setShowForm(!showForm)}>
                 Toggle Form <FontAwesomeIcon icon={faArrowDown} />
             </button>
             {showForm && (
-                <form className="inputPost" onSubmit={sendPost}>
+                <form className="inputPost" onSubmit={handleSubmit}>
                     <input type="text" placeholder="firstname*" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                     <input type="text" placeholder="lastname*" value={lastName} onChange={(e) => setLastName(e.target.value)} />
                     <input type="email" placeholder="your email*" value={email} onChange={(e) => setEmail(e.target.value)} />
                     <textarea rows="1" placeholder="your message*" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+                    {!fieldsFilled && <p style={{ color: "tomato" }}>Please fill out all fields</p>} {}
                     <button type="submit">Submit</button>
                 </form>
             )}
