@@ -1,3 +1,5 @@
+/* ######### Container Design ############ */
+
 .overallContainer {
     width: 60%;
     margin: auto;
@@ -17,10 +19,12 @@
     font-style: italic;
 }
 
+/* ######## Email Pointer ###### */
 .email {
     cursor: pointer;
 }
 
+/* ###### Red X Design ########### */
 .deletePostButton {
     all: unset;
     position: absolute;
@@ -28,10 +32,12 @@
     right: 0;
 }
 
+/* ######## Input Post ########## */
+
 .inputPost {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 40%;
     margin: auto;
     margin-bottom: 30px;
 }
@@ -45,7 +51,25 @@
     padding: 10px;
 }
 
+/* ######### Toggle Form ############## */
+
 .toggleForm {
     all: unset;
     cursor: pointer;
+}
+
+/* ############### Info Box ################ */
+
+.infoBox {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: calc(100% + 10px); /* Abstand zum rechten Rand des X-Buttons */
+    background-color: white;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.infoBox.visible {
+    display: block;
 }

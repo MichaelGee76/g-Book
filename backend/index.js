@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// Cors middleware alternative zu app.use(cors)
+// Cors middleware alternative zu app.use(cors) wollte ich mal testen. Macht aber wenig Sinn. app.use(cors) ist deutlich einfacher zu händeln
 app.use((_, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
@@ -60,6 +60,7 @@ app.post("/api/v8/g-book/posts", body("firstName").isString().notEmpty(), body("
         })
         .catch((err) => console.log("An error has occured: ", err));
 });
+// Delete Endpunkt mit versteckter PW Abfrage.
 
 app.delete("/api/v8/g-book/posts/:id", (req, res) => {
     const deletePostId = req.params.id;

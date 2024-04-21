@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import InfoBox from "../../components/InfoBox/InfoBox";
+
 const Home = () => {
     const [data, setData] = useState([]);
     const [showForm, setShowForm] = useState(true);
@@ -9,17 +11,17 @@ const Home = () => {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
+    const [hoveredPostId, setHoveredPostId] = useState(null);
 
     useEffect(() => {
         fetch("http://localhost:9009/api/v8/g-book/posts")
             .then((res) => res.json())
             .then((posts) => {
                 setData(posts);
-                console.log(posts); // Korrekte Ausgabe der empfangenen Daten
+                // console.log(posts);
             })
             .catch((err) => console.log("Could not fetch data", err));
     }, []);
-
     const deletePost = (id) => {
         const password = prompt(`Enter password to delete post: ${id}`);
         if (password) {
@@ -37,13 +39,14 @@ const Home = () => {
                     } else {
                         console.log("Invalid server response after deleting post");
                     }
-                    console.log(id);
+                    // console.log(id);
                 })
                 .catch((err) => console.log(err, "Could not delete post"));
         } else {
             console.log("No or wrong password. Post not deleted.");
         }
     };
+
     const sendPost = (e) => {
         e.preventDefault();
         const sendData = { firstName, lastName, email, message };
@@ -60,7 +63,7 @@ const Home = () => {
             .then((newPost) => {
                 setData(newPost);
 
-                console.log(sendData);
+                // console.log(sendData);
                 setFirstName("");
                 setLastName("");
                 setEmail("");
@@ -93,7 +96,7 @@ const Home = () => {
             )}
 
             {data?.map((post) => (
-                <div key={post.id} className="container">
+                <div key={post.id} className="container" onMouseEnter={() => setHoveredPostId(post.id)} onMouseLeave={() => setHoveredPostId(null)}>
                     <button className="deletePostButton" onClick={() => deletePost(post.id)}>
                         ❌
                     </button>
@@ -104,6 +107,7 @@ const Home = () => {
                     <p className="email">
                         <a href={`mailto:${post.email}`}>{maskEmail(post.email)}</a>
                     </p>
+                    <InfoBox isVisible={hoveredPostId === post.id} message="Delete this post" />
                 </div>
             ))}
         </div>
