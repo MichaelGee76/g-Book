@@ -1,10 +1,10 @@
 import express from "express";
 import { body, validationResult } from "express-validator";
 import { myPathRead, myPathWrite } from "./functions.js";
-import dotenv from "./dotenv";
+import dotenv from "dotenv";
 
 const PORT = 9009;
-dotenv.config;
+dotenv.config();
 const app = express();
 app.use(express.json());
 
